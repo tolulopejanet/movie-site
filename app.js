@@ -10,6 +10,7 @@ getMovies(API_URL)
 async function getMovies(url){
     const res = await fetch(url)
     const data = await res.json()
+    
 
     showMovies(data.results)
 }
@@ -18,7 +19,7 @@ function showMovies(movie){
     main.innerHTML= ''
 
     movie.forEach((movie) => {
-        const { title, poster_path, vote_average, overview } = movie
+        const { title, poster_path, release_date,original_language, overview } = movie
         
         const movieEl = document.createElement('div')
         movieEl.classList.add('movie')
@@ -27,16 +28,22 @@ function showMovies(movie){
             <img src="${IMG_PATH + poster_path}" alt="${title}">
             <div class="movie-info">
                 <h3>${title}</h3>
-                <span class="view" onclick="overview()">Overview</span>
-            </div>
+            
             <div class="overview">
-                ${overview}
+                <h3>Date released :: ${release_date}</h3>
+                <h3>Language :: ${original_language}</h3>
             </div>
+            <button>Download</button>
+            </div>
+           
+            
+           
         `
         main.appendChild(movieEl)
+
+
     })
 }
-
 form.addEventListener('submit', (e) => {
     e.preventDefault()
 
